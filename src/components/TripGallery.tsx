@@ -117,10 +117,12 @@ function TiltCard({ children, height, index, img, onClick }: TiltCardProps) {
 
 export default function TripGallery({ images, onImageClick }: TripGalleryProps) {
     const [columns, setColumns] = useState(3);
+    const [isMounted, setIsMounted] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
     // Responsive column count
     useEffect(() => {
+        setIsMounted(true);
         const updateColumns = () => {
             const width = window.innerWidth;
             if (width < 768) setColumns(1);
@@ -132,6 +134,9 @@ export default function TripGallery({ images, onImageClick }: TripGalleryProps) 
         window.addEventListener('resize', updateColumns);
         return () => window.removeEventListener('resize', updateColumns);
     }, []);
+
+    // Return empty div on server to prevent hydration mismatch for dynamic columns
+    if (!isMounted) return <div className="min-h-[500px]" />;
 
     // Distribute images into columns for masonry effect
     const getColumnImages = () => {
