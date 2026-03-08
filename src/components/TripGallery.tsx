@@ -93,8 +93,8 @@ function TiltCard({ children, height, index, img, onClick }: TiltCardProps) {
                 duration: 0.7,
                 ease: [0.25, 0.46, 0.45, 0.94]
             }}
-            whileHover={!isTouch ? { y: -5, scale: 1.02 } : {}}
-            whileTap={{ scale: 0.98, rotateX: 5, rotateY: 5 }}
+            whileHover={{ y: -5, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             onPointerMove={handlePointerMove}
             onPointerLeave={handlePointerLeave}
             onClick={onClick}
