@@ -46,6 +46,8 @@ function TiltCard({ children, height, index, img, onClick }: TiltCardProps) {
     const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
         if (e.pointerType === 'touch') {
             setIsTouch(true);
+            x.set(0);
+            y.set(0);
             return;
         }
 
@@ -78,8 +80,9 @@ function TiltCard({ children, height, index, img, onClick }: TiltCardProps) {
                 height: `${height}px`,
                 perspective: 1000,
                 transformStyle: 'preserve-3d',
-                rotateX: isTouch ? 0 : rotateX,
-                rotateY: isTouch ? 0 : rotateY,
+                // Always pass the MotionValue to prevent Framer Motion crashes on type switch
+                rotateX: rotateX,
+                rotateY: rotateY,
             }}
             // Combined Horizontal Slide Animation
             initial={{ opacity: 0, x: -50, scale: 0.95 }}
