@@ -184,10 +184,14 @@ export default function Hero() {
                         className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-6 md:mb-4 text-white drop-shadow-2xl leading-tight"
                     />
 
-                    {/* Animated Subtitle - Character by Character with Blur */}
+                    {/* Animated Subtitle - split into 2 lines for proper mobile wrapping */}
                     <AnimatedChars
-                        text="Mỗi chuyến đi là một trải nghiệm hoàn toàn khác."
-                        className="text-base md:text-2xl text-stone-100 font-light italic font-serif tracking-wide drop-shadow-lg max-w-[280px] md:max-w-full mx-auto"
+                        text="Mỗi chuyến đi là một trải nghiệm"
+                        className="text-base md:text-2xl text-stone-100 font-light italic font-serif tracking-wide drop-shadow-lg block"
+                    />
+                    <AnimatedChars
+                        text="hoàn toàn khác."
+                        className="text-base md:text-2xl text-stone-100 font-light italic font-serif tracking-wide drop-shadow-lg block"
                     />
                 </div>
 
