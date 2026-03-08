@@ -181,13 +181,13 @@ export default function Hero() {
                     {/* Animated Title - Word by Word with Blur */}
                     <AnimatedWords
                         text="Chuyến Đi Tuổi Trẻ"
-                        className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-4 text-white drop-shadow-2xl"
+                        className="text-5xl md:text-7xl font-serif font-bold tracking-tight mb-6 md:mb-4 text-white drop-shadow-2xl leading-tight"
                     />
 
                     {/* Animated Subtitle - Character by Character with Blur */}
                     <AnimatedChars
                         text="Mỗi chuyến đi là một trải nghiệm hoàn toàn khác."
-                        className="text-lg md:text-2xl text-stone-100 font-light italic font-serif tracking-wide drop-shadow-lg"
+                        className="text-base md:text-2xl text-stone-100 font-light italic font-serif tracking-wide drop-shadow-lg max-w-[280px] md:max-w-full mx-auto"
                     />
                 </div>
 
