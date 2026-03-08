@@ -92,17 +92,28 @@ const AnimatedWords = ({ text, className }: { text: string; className?: string }
 };
 
 // Component for animated characters (subtitle)
-const AnimatedChars = ({ text, className }: { text: string; className?: string }) => {
+const AnimatedChars = ({ text, className, delay = 0.8 }: { text: string; className?: string; delay?: number }) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         setMounted(true);
     }, []);
 
+    const variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.04,
+                delayChildren: delay,
+            },
+        },
+    };
+
     return (
         <motion.p
             className={className}
-            variants={subtitleVariants}
+            variants={variants}
             initial="hidden"
             animate={mounted ? "visible" : "hidden"}
         >
@@ -188,10 +199,13 @@ export default function Hero() {
                     <AnimatedChars
                         text="Mỗi chuyến đi là một trải nghiệm"
                         className="text-base md:text-2xl text-stone-100 font-light italic font-serif tracking-wide drop-shadow-lg block"
+                        delay={0.8}
                     />
+                    {/* Delay = line1 delayChildren(0.8) + 33 chars * stagger(0.04) + char duration(0.4) ≈ 2.5s */}
                     <AnimatedChars
                         text="hoàn toàn khác."
                         className="text-base md:text-2xl text-stone-100 font-light italic font-serif tracking-wide drop-shadow-lg block"
+                        delay={2.5}
                     />
                 </div>
 
