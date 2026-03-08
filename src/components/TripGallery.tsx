@@ -43,6 +43,13 @@ function TiltCard({ children, height, index, img, onClick }: TiltCardProps) {
     const glareX = useSpring(useTransform(x, [-0.5, 0.5], [0, 100]), springConfig);
     const glareY = useSpring(useTransform(y, [-0.5, 0.5], [0, 100]), springConfig);
 
+    // Pre-compute glare background (MUST be at top level - cannot call hooks in JSX or conditionally)
+    const glareBackground = useTransform(
+        [glareX, glareY],
+        ([gx, gy]) =>
+            `radial-gradient(circle at ${gx}% ${gy}%, rgba(255,255,255,0.15) 0%, transparent 50%)`
+    );
+
     const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
         if (e.pointerType === 'touch') {
             setIsTouch(true);
@@ -106,11 +113,7 @@ function TiltCard({ children, height, index, img, onClick }: TiltCardProps) {
                 <motion.div
                     className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     style={{
-                        background: useTransform(
-                            [glareX, glareY],
-                            ([gx, gy]) =>
-                                `radial-gradient(circle at ${gx}% ${gy}%, rgba(255,255,255,0.15) 0%, transparent 50%)`
-                        ),
+                        background: glareBackground,
                     }}
                 />
             )}
