@@ -127,22 +127,16 @@ export default function Hero() {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
 
-    const togglePlay = async () => {
+    const togglePlay = () => {
         if (videoRef.current) {
             if (isPlaying) {
+                // Khi bấm 'Dừng' -> Tắt tiếng (trở về trạng thái im lặng nền)
                 videoRef.current.muted = true;
-                // We don't pause, we just mute it as per original design intention
             } else {
+                // Khi bấm 'Phát video' -> Bật tiếng
                 videoRef.current.muted = false;
-                try {
-                    // Handle the play promise correctly for mobile browsers
-                    await videoRef.current.play();
-                } catch (err) {
-                    console.error("Video play failed:", err);
-                    // Reset state if play blocked by mobile auto-play policy
-                    setIsPlaying(false);
-                    return;
-                }
+                // Phòng trường hợp điện thoại iOS lén tắt video ngay từ đầu, mình ép chạy lại (nếu đang bị tắt)
+                videoRef.current.play().catch(console.error);
             }
         }
         setIsPlaying(!isPlaying);
@@ -161,7 +155,7 @@ export default function Hero() {
                     loop
                     muted
                     playsInline
-                    controls={false}
+                    suppressHydrationWarning
                     className={`w-full h-full object-cover transition-all duration-1000 ease-in-out ${isPlaying ? 'opacity-100 scale-100 blur-0' : 'opacity-80 scale-105 blur-[2px]'
                         }`}
                 >
